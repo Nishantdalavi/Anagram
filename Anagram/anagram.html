@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anagram Checker</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  input {
+    padding: 10px;
+    margin: 5px;
+  }
+  button {
+    padding: 10px 20px;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <div>
+    <h1>Anagram Checker</h1>
+    <input type="text" id="firstName" placeholder="Enter first name">
+    <input type="text" id="secondName" placeholder="Enter second name">
+    <br>
+    <button onclick="checkAnagram()">Check Anagram</button>
+    <p id="result"></p>
+  </div>
+</div>
+<script>
+  function checkAnagram() {
+    const firstName = document.getElementById('firstName').value.toLowerCase().replace(/\s/g, '');
+    const secondName = document.getElementById('secondName').value.toLowerCase().replace(/\s/g, '');
+
+    if (areAnagrams(firstName, secondName)) {
+      document.getElementById('result').textContent = 'These names are anagrams!';
+    } else {
+      document.getElementById('result').textContent = 'These names are not anagrams.';
+    }
+  }
+
+  function areAnagrams(str1, str2) {
+    if (str1.length !== str2.length) {
+      return false;
+    }
+
+    const charCount = {};
+
+    for (let char of str1) {
+      charCount[char] = (charCount[char] || 0) + 1;
+    }
+
+    for (let char of str2) {
+      if (!charCount[char]) {
+        return false;
+      }
+      charCount[char]--;
+    }
+
+    return true;
+  }
+</script>
+</body>
+</html>
